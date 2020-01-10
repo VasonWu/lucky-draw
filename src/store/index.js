@@ -14,10 +14,14 @@ export default new Vuex.Store({
     config: {
       name: '年会抽奖',
       number: 70,
-      firstPrize: 1
+      firstPrize: 1,
+      secondPrize: 2,
+      thirdPrize: 3
     },
     result: {
-      firstPrize: []
+      firstPrize: [],
+      secondPrize: [],
+      thirdPrize: []
     },
     newLottery: [],
     list: [],
@@ -28,7 +32,9 @@ export default new Vuex.Store({
       state.config = {
         name: '年会抽奖',
         number: 70,
-        firstPrize: 1
+        firstPrize: 1,
+        secondPrize: 2,
+        thirdPrize: 3
       };
       state.newLottery = [];
     },
@@ -40,17 +46,23 @@ export default new Vuex.Store({
     },
     setClearResult(state) {
       state.result = {
-        firstPrize: []
+        firstPrize: [],
+        secondPrize: [],
+        thirdPrize: []
       };
     },
     setClearStore(state) {
       state.config = {
         name: '年会抽奖',
         number: 70,
-        firstPrize: 1
+        firstPrize: 1,
+        secondPrize: 2,
+        thirdPrize: 3
       };
       state.result = {
-        firstPrize: []
+        firstPrize: [],
+        secondPrize: [],
+        thirdPrize: []
       };
       state.newLottery = [];
       state.list = [];
@@ -72,7 +84,8 @@ export default new Vuex.Store({
       setData(newLotteryField, state.newLottery);
     },
     setList(state, list) {
-      const arr = state.list;
+      let arr = [];
+
       list.forEach(item => {
         const arrIndex = arr.findIndex(data => data.key === item.key);
         if (arrIndex > -1) {

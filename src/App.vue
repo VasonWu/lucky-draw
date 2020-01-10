@@ -68,20 +68,20 @@
       </div>
     </transition>
 
-    <el-button
-      class="audio"
-      type="text"
-      @click="
-        () => {
-          playAudio(!audioPlaying);
-        }
-      "
-    >
-      <i
-        class="iconfont"
-        :class="[audioPlaying ? 'iconstop' : 'iconplay1']"
-      ></i>
-    </el-button>
+<!--    <el-button-->
+<!--      class="audio"-->
+<!--      type="text"-->
+<!--      @click="-->
+<!--        () => {-->
+<!--          playAudio(!audioPlaying);-->
+<!--        }-->
+<!--      "-->
+<!--    >-->
+<!--      <i-->
+<!--        class="iconfont"-->
+<!--        :class="[audioPlaying ? 'iconstop' : 'iconplay1']"-->
+<!--      ></i>-->
+<!--    </el-button>-->
 
     <LotteryConfig :visible.sync="showConfig" @resetconfig="reloadTagCanvas" />
     <Tool
@@ -93,22 +93,22 @@
     />
     <Result :visible.sync="showResult"></Result>
 
-    <span class="copy-right">
-      Copyright©zhangyongfeng5350@gmail.com
-    </span>
+<!--    <span class="copy-right">-->
+<!--      Copyright©zhangyongfeng5350@gmail.com-->
+<!--    </span>-->
 
-    <audio
-      id="audiobg"
-      preload="auto"
-      controls
-      autoplay
-      loop
-      @play="playHandler"
-      @pause="pauseHandler"
-    >
-      <source :src="audioSrc" />
-      你的浏览器不支持audio标签
-    </audio>
+<!--    <audio-->
+<!--      id="audiobg"-->
+<!--      preload="auto"-->
+<!--      controls-->
+<!--      autoplay-->
+<!--      loop-->
+<!--      @play="playHandler"-->
+<!--      @pause="pauseHandler"-->
+<!--    >-->
+<!--      <source :src="audioSrc" />-->
+<!--      你的浏览器不支持audio标签-->
+<!--    </audio>-->
   </div>
 </template>
 <script>
@@ -257,15 +257,15 @@ export default {
     },
     playAudio(type) {
       if (type) {
-        this.$el.querySelector('#audiobg').play();
+        // this.$el.querySelector('#audiobg').play();
       } else {
-        this.$el.querySelector('#audiobg').pause();
+        // this.$el.querySelector('#audiobg').pause();
       }
     },
     loadAudio() {
-      this.$el.querySelector('#audiobg').load();
+      // this.$el.querySelector('#audiobg').load();
       this.$nextTick(() => {
-        this.$el.querySelector('#audiobg').play();
+        // this.$el.querySelector('#audiobg').play();
       });
     },
     getPhoto() {
@@ -361,11 +361,11 @@ export default {
 #root {
   height: 100%;
   position: relative;
-  background-image: url('./assets/bg1.jpg');
+  background-image: url('./assets/bg.jpg');
   background-size: 100% 100%;
   background-position: center center;
   background-repeat: no-repeat;
-  background-color: #121936;
+  /*background-color: #121936;*/
   .mask {
     -webkit-filter: blur(5px);
     filter: blur(5px);
@@ -440,7 +440,7 @@ export default {
   }
   .itemres {
     background: #fff;
-    width: 160px;
+    /*width: 160px;*/
     height: 160px;
     border-radius: 4px;
     border: 1px solid #ccc;
@@ -459,7 +459,7 @@ export default {
       align-items: center;
     }
     &.numberOver::before {
-      content: attr(data-id);
+      /*content: attr(data-id);*/
       width: 30px;
       height: 22px;
       line-height: 22px;

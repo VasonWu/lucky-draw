@@ -1,10 +1,10 @@
 <template>
   <el-dialog
-    :visible="visible"
-    @close="$emit('update:visible', false)"
-    width="600px"
-    class="c-Result"
-    :append-to-body="true"
+          :visible="visible"
+          @close="$emit('update:visible', false)"
+          width="600px"
+          class="c-Result"
+          :append-to-body="true"
   >
     <div class="dialog-title" slot="title">
       <span :style="{ fontSize: '18px' }">
@@ -15,10 +15,10 @@
       </span>
     </div>
     <div
-      v-for="(item, index) in resultList"
-      :key="index"
-      class="listrow"
-      @click="
+            v-for="(item, index) in resultList"
+            :key="index"
+            class="listrow"
+            @click="
         event => {
           deleteRes(event, item);
         }
@@ -32,123 +32,127 @@
           暂未抽奖
         </span>
         <span
-          class="card"
-          v-for="(data, j) in item.value"
-          :key="j"
-          :data-res="data"
-        >
-          {{ data }}
+                class="card"
+                v-for="(data, j) in item.value"
+                :key="j"
+                :data-res="data">
+          {{ list.find(d => d.key === data) ? list.find(d => d.key === data).name : '无效' }}
         </span>
       </span>
     </div>
   </el-dialog>
 </template>
 <script>
-import { conversionCategoryName, getDomData } from '@/helper/index';
-export default {
-  name: 'c-Result',
-  props: {
-    visible: Boolean
-  },
-  computed: {
-    result: {
-      get() {
-        return this.$store.state.result;
-      },
-      set(val) {
-        this.$store.commit('setResult', val);
-      }
+  import { conversionCategoryName, getDomData } from '@/helper/index';
+  export default {
+    name: 'c-Result',
+    props: {
+      visible: Boolean
     },
-    resultList() {
-      const list = [];
-      for (const key in this.result) {
-        if (this.result.hasOwnProperty(key)) {
-          const element = this.result[key];
-          let name = conversionCategoryName(key);
-          list.push({
-            label: key,
-            name,
-            value: element
-          });
+    computed: {
+      result: {
+        get() {
+          return this.$store.state.result;
+        },
+        set(val) {
+          this.$store.commit('setResult', val);
         }
-      }
-      return list;
-    }
-  },
-  methods: {
-    deleteRes(event, row) {
-      const Index = getDomData(event.target, 'res');
-      if (!Index) {
-        return;
-      }
-      this.$confirm('此操作将移除该中奖号码，确认删除?', '警告', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-        .then(() => {
-          if (Index) {
-            const result = this.result;
-            result[row.label] = this.result[row.label].filter(
-              item => item !== Number(Index)
-            );
-            this.result = result;
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
+      },
+      resultList() {
+        const list = [];
+        for (const key in this.result) {
+          if (this.result.hasOwnProperty(key)) {
+            const element = this.result[key];
+            let name = conversionCategoryName(key);
+            list.push({
+              label: key,
+              name,
+              value: element
             });
           }
+        }
+        return list;
+      },
+      list() {
+        return this.$store.state.list;
+      }
+    },
+    methods: {
+      deleteRes(event, row) {
+        const Index = getDomData(event.target, 'res');
+        if (!Index) {
+          return;
+        }
+        this.$confirm('此操作将移除该中奖号码，确认删除?', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
         })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
+          .then(() => {
+            if (Index) {
+              const result = this.result;
+              result[row.label] = this.result[row.label].filter(
+                item => item !== Number(Index)
+              );
+              this.result = result;
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              });
+            }
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消'
+            });
           });
-        });
+      }
     }
-  }
-};
+  };
 </script>
 <style lang="scss">
-.c-Result {
-  .listrow {
-    display: flex;
-    line-height: 30px;
-    .name {
-      width: 80px;
-      font-weight: bold;
-    }
-    .value {
-      flex: 1;
-    }
-    .card {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      background-color: #f2f2f2;
-      margin-left: 5px;
-      margin-bottom: 5px;
-      position: relative;
-      cursor: pointer;
-      &:hover {
-        &::before {
-          content: '删除';
-          width: 100%;
-          height: 100%;
-          background-color: #ccc;
-          position: absolute;
-          left: 0;
-          top: 0;
-          color: red;
+  .c-Result {
+    .listrow {
+      display: flex;
+      line-height: 30px;
+      .name {
+        width: 80px;
+        font-weight: bold;
+      }
+      .value {
+        flex: 1;
+      }
+      .card {
+        display: inline-block;
+        //width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        background-color: #f2f2f2;
+        margin-left: 5px;
+        margin-bottom: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        position: relative;
+        cursor: pointer;
+        &:hover {
+          &::before {
+            content: '删除';
+            width: 100%;
+            height: 100%;
+            background-color: #ccc;
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: red;
+          }
         }
       }
     }
   }
-}
 </style>

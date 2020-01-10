@@ -1,21 +1,21 @@
 <template>
   <div class="c-Publicity">
-    <el-carousel
-      height="50px"
-      :autoplay="true"
-      indicator-position="none"
-      arrow="never"
-      :interval="3000"
-    >
-      <el-carousel-item v-for="item in message" :key="item.key">
-        <div class="item" :class="{ actiname: item.key === 0 }">
-          <span v-if="item.title" class="title"> {{ item.title }}</span>
-          <span v-if="item.value" class="value">
-            {{ item.value }}
-          </span>
-        </div>
-      </el-carousel-item>
-    </el-carousel>
+<!--    <el-carousel-->
+<!--      height="50px"-->
+<!--      :autoplay="true"-->
+<!--      indicator-position="none"-->
+<!--      arrow="never"-->
+<!--      :interval="3000"-->
+<!--    >-->
+<!--      <el-carousel-item v-for="item in message" :key="item.key">-->
+<!--        <div class="item" :class="{ actiname: item.key === 0 }">-->
+<!--          <span v-if="item.title" class="title"> {{ item.title }}</span>-->
+<!--          <span v-if="item.value" class="value">-->
+<!--            {{ item.value }}-->
+<!--          </span>-->
+<!--        </div>-->
+<!--      </el-carousel-item>-->
+<!--    </el-carousel>-->
   </div>
 </template>
 <script>
