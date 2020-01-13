@@ -1,14 +1,18 @@
 <template>
   <div id="tool">
-    <el-button size="mini" @click="onStartFirstPrize" :disabled="remainFirstPrize == 0 || remainSecondPrize > 0">
+    <el-button v-if="!running && remainFirstPrize > 0 &&remainSecondPrize === 0" size="mini" @click="onStartFirstPrize" :disabled="remainFirstPrize == 0 || remainSecondPrize > 0">
       First Prize [{{remainFirstPrize}}]
     </el-button>
-    <el-button size="mini" @click="onStartSecondPrize" :disabled="remainSecondPrize == 0 || remainThirdPrize > 0">
+    <el-button v-if="!running && remainSecondPrize > 0 && remainThirdPrize === 0" size="mini" @click="onStartSecondPrize" :disabled="remainSecondPrize == 0 || remainThirdPrize > 0">
       Second Prize [{{remainSecondPrize}}]
     </el-button>
-    <el-button size="mini" @click="onStartThirdPrize" :disabled="remainThirdPrize == 0">
+    <el-button v-if="!running && remainThirdPrize > 0 && remainFourthPrize === 0" size="mini" @click="onStartThirdPrize" :disabled="remainThirdPrize == 0 || remainFourthPrize > 0">
       Third Prize [{{remainThirdPrize}}]
     </el-button>
+    <el-button v-if="!running && remainFourthPrize > 0" size="mini" @click="onStartFourthPrize" :disabled="remainFourthPrize == 0">
+      Fourth Prize [{{remainFourthPrize}}]
+    </el-button>
+    <el-button v-if="!running && remainFirstPrize === 0" @click="showResult" type="primary" size="mini">Show Result</el-button>
     <el-button v-if="running" @click="startHandler" type="primary" size="mini">Stop</el-button>
 <!--    <el-button size="mini" @click="showRemoveoptions = true">-->
 <!--      重置-->
@@ -167,6 +171,9 @@
       remainThirdPrize() {
         return this.config['thirdPrize'] - (this.result['thirdPrize'] ? this.result['thirdPrize'].length : 0);
       },
+      remainFourthPrize() {
+        return this.config['fourthPrize'] - (this.result['fourthPrize'] ? this.result['fourthPrize'].length : 0);
+      },
       remain() {
         return (
           this.config[this.form.category] -
@@ -223,9 +230,9 @@
     methods: {
       resetConfig() {
         const type = this.removeInfo.type;
-        this.$confirm('此操作将重置所选数据，是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('Please double confirm your operation?', 'Warning', {
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         })
           .then(() => {
@@ -316,8 +323,24 @@
           Object.assign({}, {
             allin: false,
             category: 'thirdPrize',
-            mode: 1,
-            qty: 0,
+            mode: 99,
+            qty: 2,
+            remain: 0
+          })
+        );
+      },
+      onStartFourthPrize() {
+        let remain =  this.config['fourthPrize'] - (this.result['fourthPrize'] ? this.result['fourthPrize'].length : 0);
+        if(remain <= 0) {
+          return this.$message.error('该奖项已抽完');
+        }
+        this.$emit(
+          'toggle',
+          Object.assign({}, {
+            allin: false,
+            category: 'fourthPrize',
+            mode: 99,
+            qty: 5,
             remain: 0
           })
         );
@@ -353,6 +376,9 @@
         if (!this.running) {
           this.showSetwat = true;
         }
+      },
+      showResult() {
+        this.$emit('showResult');
       },
       transformList() {
         setData(configField, this.$store.state.config);
@@ -415,7 +441,7 @@
     width: 60px;
     height: 500px;
     top: 50%;
-    right: 20px;
+    right: 50px;
     transform: translateY(-50%);
     text-align: center;
     display: flex;

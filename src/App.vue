@@ -9,7 +9,7 @@
 <!--        抽奖配置-->
 <!--      </el-button>-->
     </header>
-    <el-button id="globalConfigButton" size="mini" @click="showConfigCenter = true">
+    <el-button id="globalConfigButton" style="padding-right: 10px" class="res" type="text" @click="showConfigCenter = true">
       Config
     </el-button>
     <div id="main" :class="{ mask: showRes }"></div>
@@ -90,6 +90,7 @@
     <Tool
       @toggle="toggle"
       @resetConfig="reloadTagCanvas"
+      @showResult="showResultDialog"
       @getPhoto="getPhoto"
       :running="running"
       :closeRes="closeRes"
@@ -133,14 +134,14 @@
       <el-input
               type="textarea"
               :rows="10"
-              placeholder="请输入名单，每行一个名字"
+              placeholder="Please input names."
               v-model="listStr"
       ></el-input>
       <div class="footer">
         <el-button size="mini" type="primary" @click="transformList"
-        >确定</el-button
+        >Save</el-button
         >
-        <el-button size="mini" @click="showImport = false">取消</el-button>
+        <el-button size="mini" @click="showImport = false">Cancel</el-button>
       </div>
     </el-dialog>
     <el-dialog
@@ -150,18 +151,18 @@
             :append-to-body="true"
     >
       <el-form ref="form" :model="removeInfo" label-width="80px" size="mini">
-        <el-form-item label="重置选项">
+        <el-form-item label="Options">
           <el-radio-group v-model="removeInfo.type">
-            <el-radio border :label="0">重置全部数据</el-radio>
-            <el-radio border :label="1">重置抽奖配置</el-radio>
-            <el-radio border :label="2">重置名单</el-radio>
-            <el-radio border :label="3">重置照片</el-radio>
-            <el-radio border :label="4">重置抽奖结果</el-radio>
+            <el-radio border :label="0">Reset All</el-radio>
+            <el-radio border :label="4">Reset Result</el-radio>
+            <el-radio border :label="1">Reset Prize Configuration</el-radio>
+            <el-radio border :label="2">Reset People List</el-radio>
+            <el-radio border :label="3">Reset Picture</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="resetConfig">确定重置</el-button>
-          <el-button @click="showRemoveoptions = false">取消</el-button>
+          <el-button type="primary" @click="resetConfig">Reset</el-button>
+          <el-button @click="showRemoveoptions = false">Cancel</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -337,9 +338,9 @@ export default {
   methods: {
     resetConfig() {
       const type = this.removeInfo.type;
-      this.$confirm('此操作将重置所选数据，是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm('Please double confirm your operation?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
         type: 'warning'
       })
         .then(() => {
@@ -495,6 +496,9 @@ export default {
     reloadTagCanvas() {
       window.TagCanvas.Reload('rootcanvas');
     },
+    showResultDialog() {
+      this.showResult = true;
+    },
     closeRes() {
       this.showRes = false;
     },
@@ -557,9 +561,11 @@ export default {
   height: 100%;
   position: relative;
   background-image: url('./assets/bg.jpg');
+  /*background-size: 50% 50%;*/
   background-size: 100% 100%;
   background-position: center center;
   background-repeat: no-repeat;
+  background-color: #000000;
   /*background-color: #121936;*/
   .mask {
     -webkit-filter: blur(5px);

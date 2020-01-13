@@ -49,6 +49,9 @@ export function conversionCategoryName(key) {
     case 'thirdPrize':
       name = 'Third Prize';
       break;
+    case 'fourthPrize':
+      name = 'Fourth Prize';
+      break;
     default:
       break;
   }
