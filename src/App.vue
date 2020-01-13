@@ -1,14 +1,17 @@
 <template>
   <div id="root">
     <header>
-      <Publicity v-show="!running" />
-      <el-button class="res" type="text" @click="showResult = true">
-        抽奖结果
-      </el-button>
-      <el-button class="con" type="text" @click="showConfig = true">
-        抽奖配置
-      </el-button>
+      <Publicity v-show="false" />
+<!--      <el-button class="res" type="text" @click="showResult = true">-->
+<!--        抽奖结果-->
+<!--      </el-button>-->
+<!--      <el-button class="con" type="text" @click="showConfig = true">-->
+<!--        抽奖配置-->
+<!--      </el-button>-->
     </header>
+    <el-button id="globalConfigButton" size="mini" @click="showConfigCenter = true">
+      Config
+    </el-button>
     <div id="main" :class="{ mask: showRes }"></div>
     <div id="tags">
       <ul v-for="item in datas" :key="item.key">
@@ -28,7 +31,7 @@
     </div>
     <transition name="bounce">
       <div id="resbox" v-show="showRes">
-        <p @click="showRes = false">{{ categoryName }}抽奖结果：</p>
+        <p @click="showRes = false">{{ categoryName }}:</p>
         <div class="container">
           <span
             v-for="item in resArr"
@@ -93,6 +96,75 @@
     />
     <Result :visible.sync="showResult"></Result>
 
+<!--    <ConfigCenter :visible.sync="showConfigCenter"></ConfigCenter>-->
+    <el-dialog
+            :visible.sync="showConfigCenter"
+            @close="$emit('update:visible', false)"
+            width="600px"
+            class="c-ConfigCenter"
+            :append-to-body="true"
+    >
+      <div class="dialog-title" slot="title">
+      <span :style="{ fontSize: '18px' }">
+        Configuration
+      </span>
+      </div>
+      <div>
+        <el-button size="mini" @click="showImport = true">
+          Import
+        </el-button>
+        <el-button size="mini" @click="showResult = true">
+          Result
+        </el-button>
+        <el-button size="mini" @click="showConfig = true">
+          Prize
+        </el-button>
+        <el-button size="mini" @click="showRemoveoptions = true">
+          Reset
+        </el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+            :append-to-body="true"
+            :visible.sync="showImport"
+            class="import-dialog"
+            width="400px"
+    >
+      <el-input
+              type="textarea"
+              :rows="10"
+              placeholder="请输入名单，每行一个名字"
+              v-model="listStr"
+      ></el-input>
+      <div class="footer">
+        <el-button size="mini" type="primary" @click="transformList"
+        >确定</el-button
+        >
+        <el-button size="mini" @click="showImport = false">取消</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+            :visible.sync="showRemoveoptions"
+            width="300px"
+            class="c-removeoptions"
+            :append-to-body="true"
+    >
+      <el-form ref="form" :model="removeInfo" label-width="80px" size="mini">
+        <el-form-item label="重置选项">
+          <el-radio-group v-model="removeInfo.type">
+            <el-radio border :label="0">重置全部数据</el-radio>
+            <el-radio border :label="1">重置抽奖配置</el-radio>
+            <el-radio border :label="2">重置名单</el-radio>
+            <el-radio border :label="3">重置照片</el-radio>
+            <el-radio border :label="4">重置抽奖结果</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="resetConfig">确定重置</el-button>
+          <el-button @click="showRemoveoptions = false">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
 <!--    <span class="copy-right">-->
 <!--      Copyright©zhangyongfeng5350@gmail.com-->
 <!--    </span>-->
@@ -119,14 +191,18 @@ import bgaudio from '@/assets/bg.mp3';
 import beginaudio from '@/assets/begin.mp3';
 import {
   getData,
+  clearData,
+  removeData,
   configField,
   resultField,
   newLotteryField,
   conversionCategoryName,
-  listField
+  listField,
+  setData
 } from '@/helper/index';
 import { luckydrawHandler } from '@/helper/algorithm';
 import Result from '@/components/Result';
+// import ConfigCenter from "./components/ConfigCenter";
 import { database, DB_STORE_NAME } from '@/helper/db';
 export default {
   name: 'App',
@@ -225,11 +301,16 @@ export default {
       running: false,
       showRes: false,
       showConfig: false,
+      showRemoveoptions: false,
+      showConfigCenter: false,
+      showImport: false,
       showResult: false,
       resArr: [],
       category: '',
       audioPlaying: false,
-      audioSrc: bgaudio
+      audioSrc: bgaudio,
+      listStr: '',
+      removeInfo: { type: 0 }
     };
   },
   watch: {
@@ -240,6 +321,11 @@ export default {
           this.reloadTagCanvas();
         });
       }
+    },
+    showRemoveoptions(v) {
+      if (!v) {
+        this.removeInfo.type = 0;
+      }
     }
   },
   mounted() {
@@ -249,6 +335,114 @@ export default {
     }, 1000);
   },
   methods: {
+    resetConfig() {
+      const type = this.removeInfo.type;
+      this.$confirm('此操作将重置所选数据，是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          switch (type) {
+            case 0:
+              clearData();
+              this.$store.commit('setClearStore');
+              database.clear(DB_STORE_NAME);
+              break;
+            case 1:
+              removeData(configField);
+              this.$store.commit('setClearConfig');
+              break;
+            case 2:
+              removeData(listField);
+              this.$store.commit('setClearList');
+              break;
+            case 3:
+              database.clear(DB_STORE_NAME);
+              this.$store.commit('setClearPhotos');
+              break;
+            case 4:
+              removeData(resultField);
+              this.$store.commit('setClearResult');
+              break;
+            default:
+              break;
+          }
+
+          this.closeRes && this.closeRes();
+
+          this.showRemoveoptions = false;
+          this.$message({
+            type: 'success',
+            message: '重置成功!'
+          });
+
+          this.$nextTick(() => {
+            //this.$emit('resetConfig');
+            this.reloadTagCanvas()
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+    },
+    transformList() {
+      setData(configField, this.$store.state.config);
+
+      const { listStr } = this;
+      if (!listStr) {
+        this.$message.error('没有数据');
+      }
+      const list = [];
+      const rows = listStr.split('\n');
+      let rowNumber = 0;
+      if (rows && rows.length > 0) {
+        rows.forEach(item => {
+          if(item === '') {
+            return;
+          }
+          rowNumber++;
+          list.push({
+            key: rowNumber,
+            name: item
+          });
+
+          // const rowList = item.split(/\t|\s/);
+          // if (rowList.length >= 2) {
+          //   const key = Number(rowList[0].trim());
+          //   const name = rowList[1].trim();
+          //   key &&
+          //   list.push({
+          //     key,
+          //     name
+          //   });
+          // }
+        });
+      }
+      this.$store.commit('setList', list);
+
+      let config = this.$store.state.config;
+      config.number = rowNumber;
+      this.$store.commit('setConfig', config);
+
+      let configInStorage = getData(configField);
+      configInStorage.number = rowNumber;
+      setData(configField, configInStorage);
+
+      this.$message({
+        message: '保存成功',
+        type: 'success'
+      });
+
+      this.showImport = false;
+      this.$nextTick(() => {
+        // this.$emit('resetConfig');
+        this.reloadTagCanvas();
+      });
+    },
     playHandler() {
       this.audioPlaying = true;
     },
@@ -371,7 +565,7 @@ export default {
     filter: blur(5px);
   }
   header {
-    height: 50px;
+    /*height: 50px;*/
     line-height: 50px;
     position: relative;
     .el-button {
@@ -472,5 +666,10 @@ export default {
       z-index: 1;
     }
   }
+}
+#globalConfigButton {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
 }
 </style>

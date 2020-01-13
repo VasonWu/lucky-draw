@@ -8,10 +8,10 @@
   >
     <div class="dialog-title" slot="title">
       <span :style="{ fontSize: '18px' }">
-        抽奖结果
+        Result
       </span>
       <span :style="{ fontSize: '14px', color: '#999', marginLeft: '10px' }">
-        (点击号码可以删除)
+<!--        (点击号码可以删除)-->
       </span>
     </div>
     <div
@@ -29,14 +29,14 @@
       </span>
       <span class="value">
         <span v-if="item.value && item.value.length === 0">
-          暂未抽奖
+          ?
         </span>
         <span
                 class="card"
                 v-for="(data, j) in item.value"
                 :key="j"
                 :data-res="data">
-          {{ list.find(d => d.key === data) ? list.find(d => d.key === data).name : '无效' }}
+          {{ list.find(d => d.key === data) ? list.find(d => d.key === data).name : 'Invalid' }}
         </span>
       </span>
     </div>
@@ -117,7 +117,7 @@
       display: flex;
       line-height: 30px;
       .name {
-        width: 80px;
+        width: 120px;
         font-weight: bold;
       }
       .value {
@@ -142,7 +142,7 @@
         cursor: pointer;
         &:hover {
           &::before {
-            content: '删除';
+            content: 'Del';
             width: 100%;
             height: 100%;
             background-color: #ccc;
@@ -150,6 +150,7 @@
             left: 0;
             top: 0;
             color: red;
+            font-size: 12px;
           }
         }
       }

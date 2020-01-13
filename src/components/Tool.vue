@@ -1,21 +1,21 @@
 <template>
   <div id="tool">
-    <el-button size="mini" @click="onStartFirstPrize" :disabled="remainFirstPrize == 0">
-      一等奖 [{{remainFirstPrize}}]
+    <el-button size="mini" @click="onStartFirstPrize" :disabled="remainFirstPrize == 0 || remainSecondPrize > 0">
+      First Prize [{{remainFirstPrize}}]
     </el-button>
-    <el-button size="mini" @click="onStartSecondPrize" :disabled="remainSecondPrize == 0">
-      二等奖 [{{remainSecondPrize}}]
+    <el-button size="mini" @click="onStartSecondPrize" :disabled="remainSecondPrize == 0 || remainThirdPrize > 0">
+      Second Prize [{{remainSecondPrize}}]
     </el-button>
     <el-button size="mini" @click="onStartThirdPrize" :disabled="remainThirdPrize == 0">
-      三等奖 [{{remainThirdPrize}}]
+      Third Prize [{{remainThirdPrize}}]
     </el-button>
-    <el-button v-if="running" @click="startHandler" type="primary" size="mini">停止</el-button>
-    <el-button size="mini" @click="showRemoveoptions = true">
-      重置
-    </el-button>
-    <el-button size="mini" @click="showImport = true">
-      导入名单
-    </el-button>
+    <el-button v-if="running" @click="startHandler" type="primary" size="mini">Stop</el-button>
+<!--    <el-button size="mini" @click="showRemoveoptions = true">-->
+<!--      重置-->
+<!--    </el-button>-->
+<!--    <el-button size="mini" @click="showImport = true">-->
+<!--      导入名单-->
+<!--    </el-button>-->
 <!--    <el-button size="mini" @click="showImportphoto = true">-->
 <!--      导入照片-->
 <!--    </el-button>-->

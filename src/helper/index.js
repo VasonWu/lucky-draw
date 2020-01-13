@@ -41,13 +41,13 @@ export function conversionCategoryName(key) {
   let name = '';
   switch (key) {
     case 'firstPrize':
-      name = '一等奖';
+      name = 'First Prize';
       break;
     case 'secondPrize':
-      name = '二等奖';
+      name = 'Second Prize';
       break;
     case 'thirdPrize':
-      name = '三等奖';
+      name = 'Third Prize';
       break;
     default:
       break;
