@@ -334,8 +334,11 @@ export default {
     setTimeout(() => {
       this.getPhoto();
     }, 1000);
+
+    // window.addEventListener('keyup',this.handleKeyup)
   },
   methods: {
+
     resetConfig() {
       const type = this.removeInfo.type;
       this.$confirm('Please double confirm your operation?', 'Warning', {

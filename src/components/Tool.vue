@@ -204,6 +204,9 @@
       }
     },
     components: { Importphoto },
+    mounted() {
+      window.addEventListener('keyup',this.handleKeyup)
+    },
     data() {
       return {
         showSetwat: false,
@@ -228,6 +231,44 @@
       }
     },
     methods: {
+      startNextPrize() {
+        if(this.running) {
+          this.startHandler();
+          return;
+        }
+
+        if(!this.running && this.remainFourthPrize > 0) {
+          this.onStartFourthPrize();
+          return;
+        }
+
+        if(!this.running && this.remainThirdPrize > 0) {
+          this.onStartThirdPrize();
+          return;
+        }
+
+        if(!this.running && this.remainSecondPrize > 0) {
+          this.onStartSecondPrize();
+          return;
+        }
+
+        if(!this.running && this.remainFirstPrize > 0) {
+          this.onStartFirstPrize();
+          return;
+        }
+
+        this.showResult();
+      },
+      handleKeyup(event) {
+        const e = event || window.event || arguments.callee.caller.arguments[0]
+        if(!e) return
+        if(e.keyCode === 32) {
+          this.startNextPrize();
+        }
+        // const {key,keyCode} = e
+        // console.log(e.keyCode)
+        // console.log(key)
+      },
       resetConfig() {
         const type = this.removeInfo.type;
         this.$confirm('Please double confirm your operation?', 'Warning', {
