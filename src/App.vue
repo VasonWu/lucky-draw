@@ -488,7 +488,8 @@ export default {
         dragControl: 1,
         textHeight: 20,
         noSelect: true,
-        lock: 'xy'
+        lock: 'xy',
+        wheelZoom: false
       });
     },
     reloadTagCanvas() {
@@ -544,7 +545,7 @@ export default {
           [category]: oldRes.concat(resArr)
         });
         this.result = data;
-        window.TagCanvas.SetSpeed('rootcanvas', [5, 1]);
+        window.TagCanvas.SetSpeed('rootcanvas', [0.6, 1.2]);
         this.running = !this.running;
       }
     }
