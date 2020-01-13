@@ -21,3 +21,11 @@ yarn-error.log*
 *.sw?
 config.js
 test.js
+
+electron/css
+electron/favicon.ico
+electron/fonts
+electron/img
+electron/index.html
+electron/js
+electron/media
