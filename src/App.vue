@@ -9,9 +9,8 @@
 <!--        抽奖配置-->
 <!--      </el-button>-->
     </header>
-    <el-button id="globalConfigButton" style="padding-right: 10px" class="res" type="text" @click="showConfigCenter = true">
-      Config
-    </el-button>
+    <el-button id="globalConfigButton" icon="el-icon-setting" type="text" @click="showConfigCenter = true"></el-button>
+
     <div id="main" :class="{ mask: showRes }"></div>
     <div id="tags">
       <ul v-for="item in datas" :key="item.key">
@@ -679,7 +678,9 @@ export default {
 }
 #globalConfigButton {
   position: absolute;
-  right: 0px;
+  right: 10px;
   bottom: 0px;
+  z-index: 1000;
+  font-size: 20px;
 }
 </style>

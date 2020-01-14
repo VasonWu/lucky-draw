@@ -1,19 +1,19 @@
 <template>
   <div id="tool">
-    <el-button v-if="!running && remainFirstPrize > 0 &&remainSecondPrize === 0" size="mini" @click="onStartFirstPrize" :disabled="remainFirstPrize == 0 || remainSecondPrize > 0">
-      First Prize [{{remainFirstPrize}}]
-    </el-button>
-    <el-button v-if="!running && remainSecondPrize > 0 && remainThirdPrize === 0" size="mini" @click="onStartSecondPrize" :disabled="remainSecondPrize == 0 || remainThirdPrize > 0">
-      Second Prize [{{remainSecondPrize}}]
-    </el-button>
-    <el-button v-if="!running && remainThirdPrize > 0 && remainFourthPrize === 0" size="mini" @click="onStartThirdPrize" :disabled="remainThirdPrize == 0 || remainFourthPrize > 0">
-      Third Prize [{{remainThirdPrize}}]
-    </el-button>
-    <el-button v-if="!running && remainFourthPrize > 0" size="mini" @click="onStartFourthPrize" :disabled="remainFourthPrize == 0">
-      Fourth Prize [{{remainFourthPrize}}]
-    </el-button>
-    <el-button v-if="!running && remainFirstPrize === 0" @click="showResult" type="primary" size="mini">Show Result</el-button>
-    <el-button v-if="running" @click="startHandler" type="primary" size="mini">Stop</el-button>
+<!--    <el-button v-if="!running && remainFirstPrize > 0 &&remainSecondPrize === 0" size="mini" @click="onStartFirstPrize" :disabled="remainFirstPrize == 0 || remainSecondPrize > 0">-->
+<!--      First Prize [{{remainFirstPrize}}]-->
+<!--    </el-button>-->
+<!--    <el-button v-if="!running && remainSecondPrize > 0 && remainThirdPrize === 0" size="mini" @click="onStartSecondPrize" :disabled="remainSecondPrize == 0 || remainThirdPrize > 0">-->
+<!--      Second Prize [{{remainSecondPrize}}]-->
+<!--    </el-button>-->
+<!--    <el-button v-if="!running && remainThirdPrize > 0 && remainFourthPrize === 0" size="mini" @click="onStartThirdPrize" :disabled="remainThirdPrize == 0 || remainFourthPrize > 0">-->
+<!--      Third Prize [{{remainThirdPrize}}]-->
+<!--    </el-button>-->
+<!--    <el-button v-if="!running && remainFourthPrize > 0" size="mini" @click="onStartFourthPrize" :disabled="remainFourthPrize == 0">-->
+<!--      Fourth Prize [{{remainFourthPrize}}]-->
+<!--    </el-button>-->
+<!--    <el-button v-if="!running && remainFirstPrize === 0" @click="showResult" type="primary" size="mini">Show Result</el-button>-->
+<!--    <el-button v-if="running" @click="startHandler" type="primary" size="mini">Stop</el-button>-->
 <!--    <el-button size="mini" @click="showRemoveoptions = true">-->
 <!--      重置-->
 <!--    </el-button>-->
