@@ -213,6 +213,7 @@
         showImport: false,
         showImportphoto: false,
         showRemoveoptions: false,
+        allowStartNextLevelPrize: true,
         removeInfo: { type: 0 },
         form: {
           category: '',
@@ -220,7 +221,8 @@
           qty: 1,
           allin: false
         },
-        listStr: ''
+        listStr: '',
+        lastPrizeTime: null
       };
     },
     watch: {
@@ -232,28 +234,64 @@
     },
     methods: {
       startNextPrize() {
-        if(this.running) {
-          this.startHandler();
-          return;
-        }
+        // if(this.running) {
+        //   this.lastPrizeTime = null;
+        //   this.startHandler();
+        //   return;
+        // }
 
         if(!this.running && this.remainFourthPrize > 0) {
           this.onStartFourthPrize();
           return;
+        } else if(this.running) {
+          this.startHandler();
+          this.lastPrizeTime = Date.now();
+          return;
         }
 
         if(!this.running && this.remainThirdPrize > 0) {
+          if(this.remainThirdPrize === 6) {
+            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 60000) {
+              alert('Next prize is not started');
+              return;
+            }
+          }
           this.onStartThirdPrize();
+          return;
+        } else if(this.running) {
+          this.startHandler();
+          this.lastPrizeTime = Date.now();
           return;
         }
 
         if(!this.running && this.remainSecondPrize > 0) {
+          if(this.remainSecondPrize === 4) {
+            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 60000) {
+              alert('Next prize is not started');
+              return;
+            }
+          }
           this.onStartSecondPrize();
+          return;
+        } else if(this.running) {
+          this.startHandler();
+          this.lastPrizeTime = Date.now();
           return;
         }
 
         if(!this.running && this.remainFirstPrize > 0) {
+          if(this.remainFirstPrize === 2) {
+            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 60000) {
+              alert('Next prize is not started');
+              return;
+            }
+          }
+
           this.onStartFirstPrize();
+          return;
+        } else if(this.running) {
+          this.startHandler();
+          this.lastPrizeTime = Date.now();
           return;
         }
 

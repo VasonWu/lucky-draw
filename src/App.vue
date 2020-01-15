@@ -11,6 +11,10 @@
     </header>
     <el-button id="globalConfigButton" icon="el-icon-setting" type="text" @click="showConfigCenter = true"></el-button>
 
+    <el-button id="showResultButton" type="text" @click="showResult = true">
+      Lucky People
+    </el-button>
+
     <div id="main" :class="{ mask: showRes }"></div>
     <div id="tags">
       <ul v-for="item in datas" :key="item.key">
@@ -116,9 +120,9 @@
         <el-button size="mini" @click="showResult = true">
           Result
         </el-button>
-        <el-button size="mini" @click="showConfig = true">
-          Prize
-        </el-button>
+<!--        <el-button size="mini" @click="showConfig = true">-->
+<!--          Prize-->
+<!--        </el-button>-->
         <el-button size="mini" @click="showRemoveoptions = true">
           Reset
         </el-button>
@@ -152,11 +156,11 @@
       <el-form ref="form" :model="removeInfo" label-width="80px" size="mini">
         <el-form-item label="Options">
           <el-radio-group v-model="removeInfo.type">
-            <el-radio border :label="0">Reset All</el-radio>
+<!--            <el-radio border :label="0">Reset All</el-radio>-->
             <el-radio border :label="4">Reset Result</el-radio>
-            <el-radio border :label="1">Reset Prize Configuration</el-radio>
-            <el-radio border :label="2">Reset People List</el-radio>
-            <el-radio border :label="3">Reset Picture</el-radio>
+<!--            <el-radio border :label="1">Reset Prize Configuration</el-radio>-->
+<!--            <el-radio border :label="2">Reset People List</el-radio>-->
+<!--            <el-radio border :label="3">Reset Picture</el-radio>-->
           </el-radio-group>
         </el-form-item>
         <el-form-item>
@@ -682,5 +686,16 @@ export default {
   bottom: 0px;
   z-index: 1000;
   font-size: 20px;
+}
+#showResultButton {
+  position: absolute;
+  /*right: 10px;*/
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1000;
+  font-size: 14px;
 }
 </style>

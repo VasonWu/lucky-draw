@@ -24,6 +24,7 @@
         }
       "
     >
+<!--      <div :visible="item.value && item.value.length === 0">-->
       <span class="name">
         {{ item.name }}
       </span>
@@ -39,6 +40,7 @@
           {{ list.find(d => d.key === data) ? list.find(d => d.key === data).name : 'Invalid' }}
         </span>
       </span>
+<!--      </div>-->
     </div>
   </el-dialog>
 </template>
