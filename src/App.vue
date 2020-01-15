@@ -11,9 +11,7 @@
     </header>
     <el-button id="globalConfigButton" icon="el-icon-setting" type="text" @click="showConfigCenter = true"></el-button>
 
-    <el-button id="showResultButton" type="text" @click="showResult = true">
-      Lucky People
-    </el-button>
+    <el-link id="showResultButton" :underline="false" type="primary" @click="showResult = true">Lucky People</el-link>
 
     <div id="main" :class="{ mask: showRes }"></div>
     <div id="tags">
@@ -684,18 +682,19 @@ export default {
   position: absolute;
   right: 10px;
   bottom: 0px;
-  z-index: 1000;
+  z-index: 2000;
   font-size: 20px;
 }
 #showResultButton {
   position: absolute;
   /*right: 10px;*/
-  bottom: 0;
+  bottom: 10px;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
   z-index: 1000;
   font-size: 14px;
+  width: 200px;
 }
 </style>
