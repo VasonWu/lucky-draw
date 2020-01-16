@@ -167,7 +167,7 @@
       <el-form ref="form" :model="removeInfo" label-width="80px" size="mini">
         <el-form-item label="Options">
           <el-radio-group v-model="removeInfo.type">
-<!--            <el-radio border :label="0">Reset All</el-radio>-->
+            <el-radio border :label="0">Reset All</el-radio>
             <el-radio border :label="4">Reset Result</el-radio>
 <!--            <el-radio border :label="1">Reset Prize Configuration</el-radio>-->
 <!--            <el-radio border :label="2">Reset People List</el-radio>-->
