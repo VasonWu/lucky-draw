@@ -38,7 +38,7 @@
       <div id="resbox" v-show="showRes">
 
         <div class="icon"></div>
-        <p @click="showRes = false">{{ categoryName }}:</p>
+        <p @click="showRes = false">{{ categoryName }}</p>
 
 
         <div class="container">
