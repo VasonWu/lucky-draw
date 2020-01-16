@@ -17,7 +17,7 @@ export default new Vuex.Store({
       firstPrize: 2,
       secondPrize: 4,
       thirdPrize: 6,
-      fourthPrize: 25
+      fourthPrize: 22
     },
     result: {
       firstPrize: [],
@@ -37,7 +37,7 @@ export default new Vuex.Store({
         firstPrize: 2,
         secondPrize: 4,
         thirdPrize: 6,
-        fourthPrize: 25
+        fourthPrize: 22
       };
       state.newLottery = [];
     },
@@ -62,7 +62,7 @@ export default new Vuex.Store({
         firstPrize: 2,
         secondPrize: 4,
         thirdPrize: 6,
-        fourthPrize: 25
+        fourthPrize: 22
       };
       state.result = {
         firstPrize: [],

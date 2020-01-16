@@ -250,7 +250,7 @@
         }
 
         if(!this.running && this.remainThirdPrize > 0) {
-          if(this.remainThirdPrize === 6) {
+          if(this.remainThirdPrize == this.config['thirdPrize']) {
             this.$confirm('Current round lucky draw is finished. Do you want to start next round lucky draw?', 'Congratulations!', {
               confirmButtonText: 'Yes',
               cancelButtonText: 'Cancel',
@@ -271,7 +271,7 @@
         }
 
         if(!this.running && this.remainSecondPrize > 0) {
-          if(this.remainSecondPrize === 4) {
+          if(this.remainSecondPrize == this.config['secondPrize']) {
             this.$confirm('Current round lucky draw is finished. Do you want to start next round lucky draw?', 'Congratulations!', {
               confirmButtonText: 'Yes',
               cancelButtonText: 'Cancel',
@@ -292,7 +292,7 @@
         }
 
         if(!this.running && this.remainFirstPrize > 0) {
-          if(this.remainFirstPrize === 2) {
+          if(this.remainFirstPrize == this.config['firstPrize']) {
             this.$confirm('Current round lucky draw is finished. Do you want to start next round lucky draw?', 'Congratulations!', {
               confirmButtonText: 'Yes',
               cancelButtonText: 'Cancel',
@@ -398,6 +398,7 @@
         if(remain <= 0) {
           return this.$message.error('该奖项已抽完');
         }
+
         this.$emit(
           'toggle',
           Object.assign({}, {
@@ -414,13 +415,19 @@
         if(remain <= 0) {
           return this.$message.error('该奖项已抽完');
         }
+
+        let qty = 2;
+        if((remain - qty) < 0) {
+          qty = remain
+        }
+
         this.$emit(
           'toggle',
           Object.assign({}, {
             allin: false,
             category: 'thirdPrize',
             mode: 99,
-            qty: 2,
+            qty: qty,
             remain: 0
           })
         );
@@ -430,13 +437,25 @@
         if(remain <= 0) {
           return this.$message.error('该奖项已抽完');
         }
+
+        let qty = 5;
+        if(remain >= 17) {
+          qty = 5;
+        } else {
+          qty = 4;
+        }
+
+        if((remain - qty) < 0) {
+          qty = remain
+        }
+
         this.$emit(
           'toggle',
           Object.assign({}, {
             allin: false,
             category: 'fourthPrize',
             mode: 99,
-            qty: 5,
+            qty: qty,
             remain: 0
           })
         );

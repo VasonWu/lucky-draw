@@ -131,9 +131,9 @@
         <el-button size="mini" @click="showResult = true">
           Result
         </el-button>
-<!--        <el-button size="mini" @click="showConfig = true">-->
-<!--          Prize-->
-<!--        </el-button>-->
+        <el-button size="mini" @click="showConfig = true">
+          Prize
+        </el-button>
         <el-button size="mini" @click="showRemoveoptions = true">
           Reset
         </el-button>
