@@ -11,7 +11,7 @@
     </header>
     <el-button id="globalConfigButton" icon="el-icon-setting" type="text" @click="showConfigCenter = true"></el-button>
 
-    <el-link id="showResultButton" :underline="false" type="primary" @click="showResult = true">Lucky People</el-link>
+    <el-link id="showResultButton" v-if="!running" :underline="false" type="primary" @click="showResult = true">Lucky People</el-link>
     <div id="titleWrapper">
       <div class="logo"></div>
       <span>AILSH 2020 Annual Dinner</span>
@@ -40,8 +40,13 @@
         <div class="icon"></div>
         <p @click="showRes = false">{{ categoryName }}</p>
 
+        <div class="container"
+           :style="resArr.length < 4 ? {
+                'padding-top': '250px'
+              }: {
 
-        <div class="container">
+              }"
+          >
           <span
             v-for="item in resArr"
             :key="item"
@@ -59,7 +64,7 @@
               <span
                 v-if="!!list.find(d => d.key === item)"
                 :style="{
-                  fontSize: '40px'
+                  fontSize: '24px'
                 }"
               >
                 {{ list.find(d => d.key === item).name }}
@@ -322,7 +327,7 @@ export default {
       audioPlaying: false,
       audioSrc: bgaudio,
       listStr: '',
-      removeInfo: { type: 0 }
+      removeInfo: { type: 4 }
     };
   },
   watch: {
@@ -511,6 +516,7 @@ export default {
       window.TagCanvas.Reload('rootcanvas');
     },
     showResultDialog() {
+      this.showRes = false;
       this.showResult = true;
     },
     closeRes() {

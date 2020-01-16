@@ -251,12 +251,18 @@
 
         if(!this.running && this.remainThirdPrize > 0) {
           if(this.remainThirdPrize === 6) {
-            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 600) {
-              alert('Next prize is not started');
+            this.$confirm('Current round lucky draw is finished. Do you want to start next round lucky draw?', 'Congratulations!', {
+              confirmButtonText: 'Yes',
+              cancelButtonText: 'Cancel',
+              type: 'info'
+            }).then(() => {
+              this.onStartThirdPrize();
               return;
-            }
+            })
+          } else {
+            this.onStartThirdPrize();
           }
-          this.onStartThirdPrize();
+
           return;
         } else if(this.running) {
           this.startHandler();
@@ -266,12 +272,18 @@
 
         if(!this.running && this.remainSecondPrize > 0) {
           if(this.remainSecondPrize === 4) {
-            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 600) {
-              alert('Next prize is not started');
+            this.$confirm('Current round lucky draw is finished. Do you want to start next round lucky draw?', 'Congratulations!', {
+              confirmButtonText: 'Yes',
+              cancelButtonText: 'Cancel',
+              type: 'info'
+            }).then(() => {
+              this.onStartSecondPrize();
               return;
-            }
+            })
+          } else {
+            this.onStartSecondPrize();
           }
-          this.onStartSecondPrize();
+
           return;
         } else if(this.running) {
           this.startHandler();
@@ -281,13 +293,18 @@
 
         if(!this.running && this.remainFirstPrize > 0) {
           if(this.remainFirstPrize === 2) {
-            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 600) {
-              alert('Next prize is not started');
+            this.$confirm('Current round lucky draw is finished. Do you want to start next round lucky draw?', 'Congratulations!', {
+              confirmButtonText: 'Yes',
+              cancelButtonText: 'Cancel',
+              type: 'info'
+            }).then(() => {
+              this.onStartFirstPrize();
               return;
-            }
+            })
+          } else {
+            this.onStartFirstPrize();
           }
 
-          this.onStartFirstPrize();
           return;
         } else if(this.running) {
           this.startHandler();

@@ -144,7 +144,7 @@
         /*height: 40px;*/
         //line-height: 40px;
         text-align: center;
-        font-size: 24px;
+        font-size: 18px;
         /*font-weight: bold;*/
         /*border-radius: 4px;*/
         /*border: 1px solid #ccc;*/
