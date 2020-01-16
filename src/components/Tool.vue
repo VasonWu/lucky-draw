@@ -251,7 +251,7 @@
 
         if(!this.running && this.remainThirdPrize > 0) {
           if(this.remainThirdPrize === 6) {
-            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 60000) {
+            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 600) {
               alert('Next prize is not started');
               return;
             }
@@ -266,7 +266,7 @@
 
         if(!this.running && this.remainSecondPrize > 0) {
           if(this.remainSecondPrize === 4) {
-            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 60000) {
+            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 600) {
               alert('Next prize is not started');
               return;
             }
@@ -281,7 +281,7 @@
 
         if(!this.running && this.remainFirstPrize > 0) {
           if(this.remainFirstPrize === 2) {
-            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 60000) {
+            if(this.lastPrizeTime != null && (Date.now() - this.lastPrizeTime) < 600) {
               alert('Next prize is not started');
               return;
             }

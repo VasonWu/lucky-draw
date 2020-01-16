@@ -2,17 +2,11 @@
   <el-dialog
           :visible="visible"
           @close="$emit('update:visible', false)"
-          width="600px"
+          width="1282px"
           class="c-Result"
           :append-to-body="true"
   >
     <div class="dialog-title" slot="title">
-      <span :style="{ fontSize: '18px' }">
-        Result
-      </span>
-      <span :style="{ fontSize: '14px', color: '#999', marginLeft: '10px' }">
-<!--        (点击号码可以删除)-->
-      </span>
     </div>
     <div
             v-for="(item, index) in resultList"
@@ -25,11 +19,11 @@
       "
     >
 <!--      <div :visible="item.value && item.value.length === 0">-->
-      <span class="name">
+      <div class="name">
         {{ item.name }}
-      </span>
-      <span class="value">
-        <span v-if="item.value && item.value.length === 0">
+      </div>
+      <div class="value">
+        <span v-if="item.value && item.value.length === 0" class="card">
           ?
         </span>
         <span
@@ -39,7 +33,7 @@
                 :data-res="data">
           {{ list.find(d => d.key === data) ? list.find(d => d.key === data).name : 'Invalid' }}
         </span>
-      </span>
+      </div>
 <!--      </div>-->
     </div>
   </el-dialog>
@@ -114,32 +108,51 @@
   };
 </script>
 <style lang="scss">
+  .el-dialog__header {
+    padding: 0 !important;
+  }
   .c-Result {
+    .el-dialog {
+      text-align: center;
+      min-height: 650px;
+      background-color: transparent;
+      background-image: url('../assets/bg_results.png');
+      background-size: 100% 100%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      /*top: 510px;*/
+    }
     .listrow {
-      display: flex;
-      line-height: 30px;
+      display: block;
+      /*line-height: 30px;*/
+      margin-bottom: 30px;
       .name {
-        width: 120px;
-        font-weight: bold;
+        //width: 120px;
+        //font-weight: bold;
+        font-size: 30pt;
+        color: rgb(255, 96, 91);
       }
       .value {
         flex: 1;
+        padding-left: 200px;
+        padding-right: 200px;
       }
       .card {
+        color: rgb(238, 229, 94);
         display: inline-block;
         //width: 40px;
-        height: 40px;
-        line-height: 40px;
+        /*height: 40px;*/
+        //line-height: 40px;
         text-align: center;
-        font-size: 18px;
-        font-weight: bold;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        background-color: #f2f2f2;
+        font-size: 24px;
+        /*font-weight: bold;*/
+        /*border-radius: 4px;*/
+        /*border: 1px solid #ccc;*/
+        /*background-color: #f2f2f2;*/
         margin-left: 5px;
         margin-bottom: 5px;
-        padding-left: 5px;
-        padding-right: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
         position: relative;
         cursor: pointer;
         &:hover {

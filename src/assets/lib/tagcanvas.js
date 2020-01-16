@@ -2379,7 +2379,7 @@
 			shadowOffset: [0, 0],
 			initial: null,
 			hideTags: true,
-			zoom: 1,
+			zoom: 0.95,
 			weight: false,
 			weightMode: "size",
 			weightFrom: null,

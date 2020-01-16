@@ -12,6 +12,10 @@
     <el-button id="globalConfigButton" icon="el-icon-setting" type="text" @click="showConfigCenter = true"></el-button>
 
     <el-link id="showResultButton" :underline="false" type="primary" @click="showResult = true">Lucky People</el-link>
+    <div id="titleWrapper">
+      <div class="logo"></div>
+      <span>AILSH 2020 Annual Dinner</span>
+    </div>
 
     <div id="main" :class="{ mask: showRes }"></div>
     <div id="tags">
@@ -32,7 +36,11 @@
     </div>
     <transition name="bounce">
       <div id="resbox" v-show="showRes">
+
+        <div class="icon"></div>
         <p @click="showRes = false">{{ categoryName }}:</p>
+
+
         <div class="container">
           <span
             v-for="item in resArr"
@@ -214,14 +222,16 @@ export default {
   computed: {
     resCardStyle() {
       const style = { fontSize: '30px' };
-      const { number } = this.config;
-      if (number < 100) {
-        style.fontSize = '100px';
-      } else if (number < 1000) {
-        style.fontSize = '80px';
-      } else if (number < 10000) {
-        style.fontSize = '60px';
-      }
+      // const { number } = this.config;
+      style.fontSize = '40px';
+      //
+      // if (number < 100) {
+      //   style.fontSize = '40px';
+      // } else if (number < 1000) {
+      //   style.fontSize = '40px';
+      // } else if (number < 10000) {
+      //   style.fontSize = '30px';
+      // }
       return style;
     },
     config: {
@@ -626,31 +636,66 @@ export default {
   height: 100%;
 }
 
+#main canvas {
+  padding-top: 15px;
+}
+
 #resbox {
   position: absolute;
-  top: 50%;
+  top: 425px;
   left: 50%;
-  width: 1280px;
+  width: 1040px;
+  height: 636px;
   transform: translateX(-50%) translateY(-50%);
+  background-image: url("./assets/bg_Lucky-draw.png");
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
   text-align: center;
-  p {
-    color: red;
-    font-size: 50px;
-    line-height: 120px;
+
+  .icon {
+    position: absolute;
+    width: 103px;
+    height: 81px;
+    left: 320px;
+    top: 25px;
+    background-image: url("./assets/icon_prize.png");
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
+  p {
+    display: block;
+    position: absolute;
+    left: 455px;
+    top: 50px;
+    color: rgb(255, 96, 91);
+    font-size: 35px;
+    //line-height: 120px;
+  }
+
+
   .container {
-    display: flex;
+    display: block;
     justify-content: center;
     flex-wrap: wrap;
+    padding-left: 400px;
+    padding-top: 150px;
   }
   .itemres {
-    background: #fff;
+    background-image: url("./assets/bg_name.png");
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: rgb(238, 229, 94);
+    //background: #fff;
     /*width: 160px;*/
-    height: 160px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    line-height: 160px;
-    font-weight: bold;
+    height: 68px;
+    width: 223px;
+    //border-radius: 4px;
+    //border: 1px solid #ccc;
+    //line-height: 160px;
+    //font-weight: bold;
     margin-right: 20px;
     margin-bottom: 20px;
     cursor: pointer;
@@ -667,7 +712,7 @@ export default {
       /*content: attr(data-id);*/
       width: 30px;
       height: 22px;
-      line-height: 22px;
+      //line-height: 22px;
       background-color: #fff;
       position: absolute;
       bottom: 0;
@@ -687,7 +732,6 @@ export default {
 }
 #showResultButton {
   position: absolute;
-  /*right: 10px;*/
   bottom: 10px;
   left: 0;
   right: 0;
@@ -696,5 +740,36 @@ export default {
   z-index: 1000;
   font-size: 14px;
   width: 200px;
+}
+#titleWrapper {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1000;
+  width: 690px;
+  height: 100px;
+  /*font-family: Verdana;*/
+  font-size: 30pt;
+  color: #ffffff;
+  /*background-color: white;*/
+}
+#titleWrapper .logo {
+  width: 128px;
+  height: 61px;
+  background-image: url('./assets/logo.png');
+  background-size: 80% 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+#titleWrapper span {
+  position: absolute;
+  left: 146px;
+  top: 5px;
+}
+.v-modal {
+  opacity: 0.8 !important;
 }
 </style>
